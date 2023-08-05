@@ -26,7 +26,7 @@ def convert_decimal():
     decimal = request.form['decimal']
     valid = validate.validate_decimal(decimal)
     if not valid:
-        return render_template('decimal.html', decimal=decimal, error='No valid number between 1 and 3999 entered')
+        return render_template('decimal.html', decimal=decimal, error='Invalid number')
     result = convert_number.convert_decimal(int(decimal))
     return render_template('decimal.html', decimal=decimal, result=result)
 

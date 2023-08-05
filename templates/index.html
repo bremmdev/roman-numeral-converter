@@ -9,14 +9,15 @@
   </head>
   <body>
     <main class="main">
+      <h1>Roman Numeral Converter</h1>
       <div
         id="tabs"
-        hx-get="/decimal"
-        hx-trigger="load"
         hx-target="#tabs"
         hx-swap="innerHTML"
         class="tab-container"
-      ></div>
+      >
+        {% include 'decimal.html' %}
+      </div>
     </main>
   </body>
 </html>

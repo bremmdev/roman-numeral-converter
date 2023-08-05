@@ -1,35 +1,36 @@
 <div role="tablist" class="tabs">
-  <button
-    role="tab"
-    aria-selected="true"
-    class="tab active"
-    hx-get="/decimal"
-  >
+  <button role="tab" aria-selected="true" class="tab active" hx-get="/decimal">
     Convert to Roman
   </button>
-  <button
-    role="tab"
-    aria-selected="false"
-    class="tab"
-    hx-get="/roman"
-  >
+  <button role="tab" aria-selected="false" class="tab" hx-get="/roman">
     Convert to Decimal
   </button>
 </div>
 
 <div role="tabpanel" aria-hidden="false" class="tab-content">
-  <form hx-post="/convert-decimal" hx-target="#tabs" class="flex gap-2 flex-col">
-    <label for="decimal-number">Number</label>
-    <input
-      type="number"
-      name="decimal"
-      id="decimal-number"
-      placeholder="Enter a number"
-      required
-      value="{{ decimal }}"
-    />
+  <form
+    hx-post="/convert-decimal"
+    hx-target="#tabs"
+    class="flex gap-2 flex-col"
+  >
+    <div class="form-control">
+      <label for="decimal-number">Number</label>
+      <input
+        type="number"
+        name="decimal"
+        id="decimal-number"
+        placeholder="Enter a number"
+        required
+        value="{{ decimal }}"
+        aria-describedby="hint"
+      />
+      <p id="hint" class="input-hint">Hint: number must be between 0 and 3999</p>
+    </div>
     <button type="submit" class="submitBtn">Convert</button>
   </form>
-  <div id="result" class="result">{{ decimal + " to roman is " + result if result else "" }}</result>
+  <div class="result">
+    {{ decimal + " to roman is " + result if result else "" }}
+  </div>
   <div class="error">{{ error }}</div>
+</div>
 </div>

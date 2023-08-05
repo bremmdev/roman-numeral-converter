@@ -1,5 +1,13 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
 
+:root {
+  --purple-50: #faf5ff;
+  --purple-200: #e9d5ff;
+  --purple-400: #c084fc;
+  --purple-600: #9333ea;
+  --purple-700: #7e22ce;
+  --slate-950: #020617;
+}
 
 * {
   box-sizing: border-box;
@@ -8,18 +16,43 @@
 }
 
 body {
-  font-family: Popins, sans-serif;
+  font-family: Poppins, sans-serif;
+  font-size: 0.8rem;
+
+  @media (min-width: 640px) {
+    font-size: 0.9rem;
+  }
+
+  @media (min-width: 960px) {
+    font-size: 1rem;
+  }
+}
+
+h1 {
+  font-size: 1.5rem;
+  max-width: 80%;
+  margin: 0 auto;
+  font-weight: 400;
+  margin-bottom: 1rem;
+  color: var(--purple-700);
+  text-align: center;
+  margin-bottom: 2rem;
+
+  @media (min-width: 640px) {
+    font-size: 2rem;
+  }
 }
 
 .main {
   height: 100vh;
   display: flex;
   justify-items: center;
+  flex-direction: column;
   width: 90%;
   max-width: 1024px;
-  padding:5rem 0;
+  padding: 3rem 0;
   margin: 0 auto;
-  color: #020617;
+  color: var(--slate-950);
 
   @media (min-width: 640px) {
     width: 80%;
@@ -34,8 +67,9 @@ body {
 
 .tabs {
   display: flex;
-  background: #faf5ff;
-  color: #7e22ce;
+  background: var(--purple-50);
+  gap: 1em;
+  color: var(--purple-700);
   border-radius: 0.5rem;
   margin-bottom: 1rem;
   padding: 0.5rem;
@@ -48,48 +82,72 @@ body {
   cursor: pointer;
   border-radius: 0.5rem;
   outline: none;
-  background: #faf5ff;
-  color: #7e22ce;
+  background: var(--purple-50);
+  color: var(--purple-700);
   border: 0;
   font-size: inherit;
   font-family: inherit;
-  font-weight: 700;
+  font-weight: 500;
+}
+
+.tab:focus-visible {
+  outline: 2px solid var(--purple-700);
 }
 
 .tab.active {
   border-radius: 0.5rem;
-  background: #e9d5ff;
+  background: var(--purple-200);
   padding: 0.25rem 0;
 }
 
 .tab-content {
   padding: 0.5rem;
   border-radius: 0.5rem;
-  background: #faf5ff;
+  background: var(--purple-50);
   border: 0;
   font-size: inherit;
   font-family: inherit;
-  font-weight: 700;
-  padding:3rem;
+  font-weight: 500;
+  padding: 2rem;
+
+  @media (min-width: 640px) {
+    padding: 3rem;
+  }
 }
 
 .tab-content form {
   display: flex;
   flex-direction: column;
-  gap:1em;
+  gap: 2em;
+}
+
+.tab-content form .form-control {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
 }
 
 .tab-content .submitBtn {
   font-size: inherit;
   font-family: inherit;
-  background: #7e22ce;
-  color: #faf5ff;
+  background: var(--purple-700);
+  color: var(--purple-50);
   border: 0;
   border-radius: 0.5rem;
   padding: 0.75rem 2em;
-  font-weight: 700;
+  font-weight: 500;
   cursor: pointer;
-  margin-top:1em;
+  background: var(--purple-600);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.tab-content .submitBtn:hover {
+  background: var(--purple-700);
+  transition: background-color 0.3s ease-in-out;
+}
+
+.tab-content .submitBtn:focus {
+  outline: 2px solid var(-slate-950);
 }
 
 .tab-content input {
@@ -98,13 +156,19 @@ body {
   font-size: inherit;
   font-family: inherit;
   background: inherit;
-  border-bottom: 2px solid #a78bfa;
-  
+  border-bottom: 2px solid var(--purple-400);
 }
 
 .tab-content input:focus {
   outline: none;
-  border-bottom: 2px solid #7e22ce;
+  transition: all 0.3s ease-in-out;
+  border-bottom: 2px solid var(--purple-700);
+}
+
+.input-hint {
+  opacity: 0.4;
+  margin-top: 0.5em;
+  font-size: 0.9em;
 }
 
 .result {
