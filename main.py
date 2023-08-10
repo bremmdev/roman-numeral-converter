@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, render_template_string
 import convert_number
 import validate
 
@@ -25,10 +25,11 @@ def roman():
 def convert_decimal():
     decimal = request.form['decimal']
     valid = validate.validate_decimal(decimal)
+
     if not valid:
-        return render_template('decimal.html', decimal=decimal, error='Invalid number')
+        return render_template_string("<span class='error'>Invalid number</span>")
     result = convert_number.convert_decimal(int(decimal))
-    return render_template('decimal.html', decimal=decimal, result=result)
+    return render_template_string("<span>{{ decimal }} to roman is {{ result }}</span>", decimal=decimal, result=result)
 
 
 @app.route('/convert-roman', methods=['POST'])
@@ -36,10 +37,10 @@ def convert_roman():
     roman = request.form['roman']
     valid = validate.validate_roman(roman)
     if not valid:
-        return render_template('roman.html', roman=roman, error='Invalid roman number')
+        return render_template_string("<span class='error'>Invalid number</span>")
 
     result = convert_number.convert_roman(roman)
-    return render_template('roman.html', roman=roman, result=str(result))
+    return render_template_string("<span>{{ roman }} to decimal is {{ result }}</span>", roman=roman, result=result)
 
 
 if __name__ == '__main__':

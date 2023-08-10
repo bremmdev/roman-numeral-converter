@@ -8,7 +8,12 @@
 </div>
 
 <div role="tabpanel" aria-hidden="false" class="tab-content">
-  <form hx-post="/convert-roman" hx-target="#tabs">
+  <form
+    hx-post="/convert-roman"
+    hx-target=".result"
+    hx-swap="innerHTML"
+    class="flex gap-2 flex-col"
+  >
     <div class="form-control">
       <label for="roman-number">Roman Number</label>
       <input
@@ -20,12 +25,11 @@
         value="{{ roman }}"
         aria-describedby="hint"
       />
-      <p id="hint" class="input-hint">Hint: number must be between 0 and 3999</p>
+      <p id="hint" class="input-hint">
+        Hint: number must be between 0 and 3999
+      </p>
     </div>
     <button type="submit" class="submitBtn">Convert</button>
   </form>
-  <div class="result">
-    {{ roman + " to decimal is " + result if result else " " }}
-  </div>
-  <div class="error">{{ error }}</div>
+  <div class="result"></div>
 </div>

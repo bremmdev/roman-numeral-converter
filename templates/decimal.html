@@ -10,7 +10,8 @@
 <div role="tabpanel" aria-hidden="false" class="tab-content">
   <form
     hx-post="/convert-decimal"
-    hx-target="#tabs"
+    hx-target=".result"
+    hx-swap="innerHTML"
     class="flex gap-2 flex-col"
   >
     <div class="form-control">
@@ -29,8 +30,6 @@
     <button type="submit" class="submitBtn">Convert</button>
   </form>
   <div class="result">
-    {{ decimal + " to roman is " + result if result else "" }}
   </div>
-  <div class="error">{{ error }}</div>
 </div>
 </div>
