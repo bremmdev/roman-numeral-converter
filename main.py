@@ -8,17 +8,20 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    headers = {'cache-control': 'no-cache'}
+    return render_template('index.html'), 200, headers
 
 
 @app.route('/decimal')
 def decimal():
-    return render_template('decimal.html')
+    headers = {'cache-control': 'no-cache'}
+    return render_template('decimal.html'), 200, headers
 
 
 @app.route('/roman')
 def roman():
-    return render_template('roman.html')
+    headers = {'cache-control': 'no-cache'}
+    return render_template('roman.html'), 200, headers
 
 
 @app.route('/convert-decimal', methods=['POST'])
