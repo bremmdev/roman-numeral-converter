@@ -1,26 +1,40 @@
 from flask import Flask, request, render_template, render_template_string
 import convert_number
 import validate
-
+import hashlib
 
 app = Flask(__name__)
 
 
+def get_response_headers(template):
+    content = render_template(template)
+    etag = hashlib.sha256(content.encode('utf-8')).hexdigest()
+    cache_control = 'no-cache' if template == 'index.html' else 'public, max-age=86400'
+    headers = {'cache-control': cache_control, 'Etag': etag}
+    return etag, headers
+
+
 @app.route('/')
 def index():
-    headers = {'cache-control': 'no-cache'}
+    etag, headers = get_response_headers('index.html')
+    if request.headers.get('If-None-Match') == etag:
+        return '', 304, headers  # Not Modified
     return render_template('index.html'), 200, headers
 
 
 @app.route('/decimal')
 def decimal():
-    headers = {'cache-control': 'no-cache'}
+    etag, headers = get_response_headers('decimal.html')
+    if request.headers.get('If-None-Match') == etag:
+        return '', 304, headers  # Not Modified
     return render_template('decimal.html'), 200, headers
 
 
 @app.route('/roman')
 def roman():
-    headers = {'cache-control': 'no-cache'}
+    etag, headers = get_response_headers('roman.html')
+    if request.headers.get('If-None-Match') == etag:
+        return '', 304, headers  # Not Modified
     return render_template('roman.html'), 200, headers
 
 
