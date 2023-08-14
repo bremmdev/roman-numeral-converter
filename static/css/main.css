@@ -171,12 +171,44 @@ h1 {
   font-size: 0.9em;
 }
 
-.result {
-  margin-top: 2rem;
-  text-align: center;
-}
-
 .error {
   text-align: center;
   color: #e53e3e;
 }
+
+.result {
+  margin-top: 2rem;
+  text-align: center;
+  view-transition-name: result; /* tie the view transition */
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(180px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* transition for the outgoing view */
+::view-transition-old(result) {
+  animation: 250ms cubic-bezier(0.4, 0, 1, 1) fade-out;
+}
+
+/* transition for the incoming view */
+::view-transition-new(result) {
+  animation: 250ms cubic-bezier(0.4, 0, 1, 1) slide-in;
+}
+
