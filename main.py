@@ -9,7 +9,8 @@ app = Flask(__name__)
 def get_response_headers(template):
     content = render_template(template)
     etag = hashlib.sha256(content.encode('utf-8')).hexdigest()
-    cache_control = 'no-cache' if template == 'index.html' else 'public, max-age=86400'
+    cache_control = 'no-cache' if (template == 'index.html' or template ==
+                                   'index_roman.html') else 'public, max-age=86400'
     headers = {'cache-control': cache_control, 'Etag': etag}
     return etag, headers
 
@@ -24,18 +25,26 @@ def index():
 
 @app.route('/decimal')
 def decimal():
-    etag, headers = get_response_headers('decimal.html')
+    is_htmx_request = request.headers.get('Hx-Request')
+    # diffentiate between htmx and normal request for different templates
+    template = 'decimal.html' if is_htmx_request else 'index.html'
+    etag, headers = get_response_headers(template)
     if request.headers.get('If-None-Match') == etag:
         return '', 304, headers  # Not Modified
-    return render_template('decimal.html'), 200, headers
+
+    return render_template(template), 200, headers
 
 
 @app.route('/roman')
 def roman():
-    etag, headers = get_response_headers('roman.html')
+    is_htmx_request = request.headers.get('Hx-Request')
+    # diffentiate between htmx and normal request for different templates
+    template = 'roman.html' if is_htmx_request else 'index_roman.html'
+    etag, headers = get_response_headers(template)
     if request.headers.get('If-None-Match') == etag:
         return '', 304, headers  # Not Modified
-    return render_template('roman.html'), 200, headers
+
+    return render_template(template), 200, headers
 
 
 @app.route('/convert-decimal', methods=['POST'])
